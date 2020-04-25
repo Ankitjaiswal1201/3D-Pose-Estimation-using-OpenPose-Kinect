@@ -1,0 +1,148 @@
+import matlab.engine
+import os
+
+eng = matlab.engine.start_matlab()
+from skeleton_fun import skeleton_fun
+from Display_new_fun import display_fun
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+path2 = "F:/Daten1c/"
+print(path2)
+print(len([name for name in os.listdir(path2)])) # if os.path.isfile(os.path.join(path2, name))]))
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+i = 1
+for i in range(len([name for name in os.listdir(path2)])):
+
+    color_img ='F:/Daten1c/Proband{0}\GAITWCOG\CB1_color'.format(i+155)
+    try:
+        os.makedirs(color_img)
+    except FileExistsError:
+        # directory already exists
+        pass
+    pathh1 = os.listdir(color_img)
+
+    depth_img ='F:/Daten1c/Proband{0}\GAITWCOG\CB1_Depth'.format(i+155)
+    try:
+        os.makedirs(depth_img)
+    except FileExistsError:
+        # directory already exists
+        pass
+    pathh2 = os.listdir(depth_img)
+
+    json = 'F:/Daten1c/Proband{0}\GAITWCOG\CB1_color\json'.format(i+155)
+    try:
+        os.makedirs(json)
+    except FileExistsError:
+        # directory already exists
+        pass
+    pathh3 = os.listdir(json)
+
+    Openpose = 'F:/Daten1c/Proband{0}\GAITWCOG/CB1_color/2dOutput/'.format(i+155)
+    twoDOutput = 'F:/Daten1c/Proband{0}\GAITWCOG/CB1_color/2dOutput/'.format(i+155)
+    try:
+        os.makedirs(twoDOutput)
+    except FileExistsError:
+        # directory already exists
+        pass
+    pathh4 = os.listdir(twoDOutput)
+
+    selected_color ='F:/Daten1c/Proband{0}\GAITWCOG\CB1_color\selected'.format(i+155)
+    try:
+        os.makedirs(selected_color)
+    except FileExistsError:
+        # directory already exists
+        pass
+    pathh5 = os.listdir(selected_color)
+
+    selected_depth ='F:/Daten1c/Proband{0}\GAITWCOG\CB1_Depth\selected'.format(i+155)
+    try:
+        os.makedirs(selected_depth)
+    except FileExistsError:
+        # directory already exists
+        pass
+    pathh6 = os.listdir(selected_depth)
+
+    mat = 'F:/Daten1c/Proband{0}\GAITWCOG\CB1_color\mat'.format(i+155)
+    try:
+        os.makedirs(mat)
+    except FileExistsError:
+        # directory already exists
+        pass
+    pathh7 = os.listdir(mat)
+
+    results = 'F:/Daten1c/Proband{0}\GAITWCOG\CB1_results'.format(i+155)
+    try:
+        os.makedirs(results)
+    except FileExistsError:
+        # directory already exists
+        pass
+    pathh8 = os.listdir(results)
+
+    # skeleton = 'F:/Daten1c/Proband{0}\GAITWCOG\CB1_results\skeleton'.format(i+155)
+    # try:
+    #    os.makedirs(skeleton)
+    # except FileExistsError:
+    # directory already exists
+    #    pass
+
+    excel = 'F:\Daten1/Results3\Proband{0}_CB1.xls'.format(i+155)
+    Openpose2D = 'F:/Daten1c/Proband{0}\GAITWCOG/CB1_color/2dOutput'.format(i+155)
+    if not os.path.exists('Openpose2D'):
+        os.makedirs('Openpose2D')
+
+    print(color_img)
+# --------------------------------------------------------------------------------------------------------------------
+    # Main Code
+# --------------------------------------------------------------------------------------------------------------------
+    # Block 1 (MATLAB)
+    eng.datfiles(color_img, depth_img, nargout=0)
+# ---------------------------------------------------------------------------------------------------------------------
+    # Block 2 (OpenPose)
+    echo = "echo"
+    path = "C:/Users\student\Desktop\openpose/"
+    os.chdir(path)
+    command="bin\OpenPoseDemo.exe"+" "+"--image_dir" + " " + color_img + " " + "--write_images" + " " + Openpose2D + " " + "--write_json" + " " + json + " " + "--disable_blending"+" " + "--alpha_pose 1" + " "+"--tracking 0" + " "+"--number_people_max 1"
+    os.system(" " + command)
+# ----------------------------------------------------------------------------------------------------------------------
+    # Block 3 (MATLAB)
+    eng.image_sorting(color_img, depth_img, Openpose, selected_color, selected_depth, nargout=0)
+
+    eng.mat_files(json, mat, nargout=0)
+
+# ---------------------------------------------------------------------------------------------------------------------
+    # Block 4 (Python)
+
+    display_fun(mat, selected_depth, selected_color, results, excel)
+
+    for item in pathh1:
+        if item.endswith(".bmp"):
+            os.remove(os.path.join(color_img, item))
+
+    for item in pathh2:
+        if item.endswith(".bmp"):
+            os.remove(os.path.join(depth_img, item))
+
+    for item in pathh3:
+        if item.endswith(".json"):
+            os.remove(os.path.join(json, item))
+
+    for item in pathh4:
+        if item.endswith(".png"):
+            os.remove(os.path.join(twoDOutput, item))
+
+    for item in pathh5:
+        if item.endswith(".png"):
+            os.remove(os.path.join(selected_color, item))
+
+    for item in pathh6:
+        if item.endswith(".png"):
+            os.remove(os.path.join(selected_depth, item))
+
+    for item in pathh7:
+        if item.endswith(".mat"):
+            os.remove(os.path.join(mat, item))
+
+# ---------------------------------------------------------------------------------------------------------------------

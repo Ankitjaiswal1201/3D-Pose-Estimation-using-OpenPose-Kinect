@@ -1,0 +1,38 @@
+%2D from Open Pose to 2D annotations in MATLAB
+%You can directly use it to open individual JSON files of OpenPose by using next line.
+%You require loadjson file for this.
+
+%S = loadjson('Record_00000.dat_keypoints.json')
+
+%You can use it directly as a funtion
+function b1 = converting(S)
+
+a = zeros(1,54, 'uint8') ;% a= 1x54 uint8 row vector
+b = zeros(25,3, 'double') ;% b is 14x3 double matrix
+K = S.people; % S is structure so in that we are looking for people.
+if isempty(K) % Check if there are any people detected
+    b1=0;
+else
+        J = cell2mat(K); % converts a cell array into an ordinary array
+        c = size(J,2); % returns the second dimension of array
+        f=1;
+        b1 = zeros(25 , c*2); % define b1  with a matrix of (25,c*2). Here it is 25 
+                               %because we are dealing with body25 model which has 25 key joints
+            for i = 1:size(J,2) % Here size with dim 2 gives how many people are detected and loop runs for that many times
+                A = J(i).pose_keypoints_2d; %pose_keypoints_2d is where 2D data from OpenPose is stored
+                A1 = A(1,1:75); % As there are 25*3 pose_keypoints_2d i.e x,y,c which are in 1 row where
+                                % x,y are location for each joint and c is confidence score
+                    n = 1;    
+                     for C2 = 1:25 % For 25 keyjoints
+                         for C3 = 1:3 % Taking  x, y, c values of each
+                             b(C2,C3) = A1(n); % Taking each value of A1 and storing it in b which is a 25*3 matrix
+                              n = n+1; % for taking next cell value of A1
+                         end
+                     end
+
+                    b1(:,f:f+1) = b(1:25,1:2) ; % taking b values for each person and storing it b1 at column 1 and 2
+                    f=f+2; % Increasing the value by 2 to store next b value (Person data) in next 2 columns.
+
+            end
+end
+end

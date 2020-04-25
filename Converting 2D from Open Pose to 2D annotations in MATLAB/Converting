@@ -30,7 +30,7 @@ else
                          end
                      end
 
-                    b1(:,f:f+1) = b(1:25,1:2) ; % taking b values for each person and storing it b1 at column 1 and 2
+                    b1(:,f:f+1) = b(1:25,1:2) ; % taking b values (x,y) for each person and storing it b1 at column 1 and 2
                     f=f+2; % Increasing the value by 2 to store next b value (Person data) in next 2 columns.
 
             end

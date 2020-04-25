@@ -41,9 +41,7 @@ def init_maxvalue():
 
 
 def depth_rgb_registration(rgb, depth):
-    # t.tic()
 
-    #    f=open("RecordAll.xls",'w') # Taking second argument i.e the depth image name
     init_maxvalue()
     rgb = Image.open(rgb)
     depth = Image.open(depth).convert('L')  # convert image to monochrome
@@ -80,13 +78,7 @@ def depth_rgb_registration(rgb, depth):
         z = []
 
     for val in min_vex:
-        # f.write(str(val) + ' ' + str(p_vex[i]) + '');
-        # gait_list1.append({'IX': "%i" % val[0],
-        #                     'IY': "%i" % val[1],
-        #                     'Ix': "%i" % p_vex[i][0],
-        #                     'Iy': "%i" % p_vex[i][1],
-        #                     'Iz': "%i" % p_vex[i][2],
-        # })
+
         gait_list1.append(val[0])
         gait_list1.append(val[1])
         gait_list1.append(p_vex[i][0])
@@ -99,14 +91,6 @@ def depth_rgb_registration(rgb, depth):
         y.append(p_vex[i][1])
         z.append(p_vex[i][2])
         i = i + 1
-    #gait_list1 = '\n'.join(gait_list1)
-    #data1 = pd.DataFrame(gait_list1)
-    #else:
-        #gait_list1 = '\n'.join(gait_list1)
-    #    f.write("\n")
-        # data1 = pd.DataFrame(gait_list1)
-
-    # t.toc();
 
 
 def min_distance(val, p):
@@ -182,7 +166,7 @@ def display_fun(mat, selected_depth, selected_color, results, excel):
     for idx, list1 in enumerate(file_lists4):
         # Iterate through items of list2
         for i in range(len(file_lists3)):
-            if list1.split('.')[0] == file_lists3[i].split('.')[0]:
+            if list1.split('.')[0] == file_lists3[i].split('.')[0]: 
                 rgb = os.path.join(path4, list1)
                 depth = os.path.join(path3, sorted(file_lists3)[i])
                 m = sorted(file_lists)[idx]

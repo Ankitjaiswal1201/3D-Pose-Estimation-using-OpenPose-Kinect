@@ -1,0 +1,49 @@
+% authors: Ankit Jaiswal (ankitjaiswal1201 <at> gmail.com) (ankit.jaiswal <at> s2017.tu-chemnitz.de)
+%function mat_files(json,mat)
+% There are times when there are many people in one image frame. In our case, there were
+% 3 such person and the person of interest was always the first person from the left 
+% of the image. So to detect that person, the below code was written.
+% This file also gives initial steps to convert 2D Data from OpenPose (JSON file) to 2D annotations in MATLAB for a 
+% function converting.m and storing it in mat files
+
+json = 'C:\Users\student\Downloads\Test\json\' % Folder for loading JSON files
+mat = 'C:\Users\student\Downloads\Test\mat\' % Folder for storing mat files
+file = dir(fullfile(json, '*.json'));
+
+
+for m = 1:length(file)
+    JsonDataBase = file(m).name; % Take the file name
+    JsonData = fullfile(json, JsonDataBase); % Take the path of file name
+    
+    S2 = loadjson(JsonData); % Load the JSON file of OpenPose
+    b1 = converting1(S2); %Converts all keypoints of persons detected in column format
+    if b1 ==0
+    else
+        Zo = b1;
+        Zo(: ,Zo(9,:) == 0 | Zo(11,:) == 0 | Zo(12,:) == 0 | Zo(14,:) == 0 | Zo(15,:) == 0 | Zo(10,:) == 0 | Zo(13,:)== 0 ) = NaN;
+        It checks if any of the joints from (9,10,11,12,13,14,15) are zeros. If yes then assign it NaN value.
+        Zo(Zo == 0) = NaN;
+        a21 = min(Zo(:,1:2:end),[],1); %x values
+        a211 = min(Zo(:,2:2:end), [],1); %y Values
+
+        a22 = a21((a21 > 600 & a21 <1100) & ( a211 <700)); % This gives the middle range of frame as the person is always in middle
+        % range of values. This is done because OpenPose sometimes gives false detection.
+        %a222 = a222(a222 > 500 & a222 <1700);
+        a2 = min(a22) ; then we find the minimum value
+        %a23 = min(a222)
+        if isempty(a2) % if a2 is empty means no pose detected, go for the next frame
+            continue
+        else
+            [x,y]=find(a2==Zo); % finds the location of the minimum value
+            A=Zo(:,y:y+1); % Gives only one set of keyjoints which is first from left.
+            A(isnan(A)) = 0;
+            b2 =int64(round(A));
+        end
+    end
+              
+    baseFileName2 = sprintf('%s.mat', JsonDataBase );
+    fullFileName2 = fullfile(mat, baseFileName2);
+    save(fullFileName2,'b1') % storing the value as mat file for further use.
+    %disp(m)
+
+end

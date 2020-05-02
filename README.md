@@ -2,7 +2,8 @@
 
 Here I have given an idea about the work done in my Research Project, Hiwi and Thesis.
 
-[Published Research Paper](https://dl.acm.org/doi/10.1145/3375923.3375943)
+## Publication
+Research paper published [https://dl.acm.org/doi/10.1145/3375923.3375943](https://dl.acm.org/doi/10.1145/3375923.3375943)
 
 The Proposed architecture for gait parameter estimation is given as follows:
 

@@ -11,7 +11,6 @@ The Proposed architecture for gait parameter estimation is given as follows:
 ![alt text](https://github.com/Ankitjaiswal1201/Thesis/blob/master/Images/arch.png)
 
 
-## Project Details
 The proposed approach consists of three main blocks. They are 
 1. Data acquisition, 
 2. 3D pose-estimation and 

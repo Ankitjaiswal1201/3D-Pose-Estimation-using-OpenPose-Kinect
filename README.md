@@ -24,6 +24,9 @@ Using the 3D pose estimation results, the gait parameters are extracted as shown
 ### Conversion of Dat raw files to any viewable format like .bmp, .png, .jpg. ###
 As the obtained data from XPCV software is raw data, here we are converting color image and depth images in the form of .dat files from kinect to .bmp files and saving it in a folder.
 
+### Sorting of images based on Timestamp
+As the number of RGB and depth images obtained from Kinect is not same, sorting of images based in Timestamp values is done.
+
 ### 3D Pose Estimation ###
 The 3D pose estimation is an important aspect ofthe gait parameter estimation. The estimation of 3D pose involves two stages.
 The first stage involves 2D pose estimation and the second stage involves mapping of 2D pose estimation results with depth image to generate a 3D point cloud.
@@ -39,6 +42,17 @@ detected human skeleton.
 
 ### Converting 2D Data from OpenPose (JSON file) to 2D annotations in MATLAB. ###
 This folder gives information of how to convert 2D Data (JSON file) obtained from OpenPose to 2D annotations in MATLAB.
+
+### Generation of skeleton
+Generation of skeleton of the person of interest based on certain conditions.
+![alt text](https://github.com/Ankitjaiswal1201/Thesis/blob/master/Images/Record_00084_skeleton.bmp)
+
+
+
+### 3D Pose Estimation
+
+![alt text](https://github.com/Ankitjaiswal1201/Thesis/blob/master/Images/3D_skeleton.bmp)
+
 
 
 

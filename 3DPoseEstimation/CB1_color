@@ -117,32 +117,4 @@ for i in range(len([name for name in os.listdir(path2)])):
 
     display_fun(mat, selected_depth, selected_color, results, excel)
 
-    for item in pathh1:
-        if item.endswith(".bmp"):
-            os.remove(os.path.join(color_img, item))
-
-    for item in pathh2:
-        if item.endswith(".bmp"):
-            os.remove(os.path.join(depth_img, item))
-
-    for item in pathh3:
-        if item.endswith(".json"):
-            os.remove(os.path.join(json, item))
-
-    for item in pathh4:
-        if item.endswith(".png"):
-            os.remove(os.path.join(twoDOutput, item))
-
-    for item in pathh5:
-        if item.endswith(".png"):
-            os.remove(os.path.join(selected_color, item))
-
-    for item in pathh6:
-        if item.endswith(".png"):
-            os.remove(os.path.join(selected_depth, item))
-
-    for item in pathh7:
-        if item.endswith(".mat"):
-            os.remove(os.path.join(mat, item))
-
 # ---------------------------------------------------------------------------------------------------------------------

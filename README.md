@@ -5,6 +5,7 @@ Here I have given an idea about the work done in my Research Project, Hiwi and T
 ## Publication
 Research paper published [https://dl.acm.org/doi/10.1145/3375923.3375943](https://dl.acm.org/doi/10.1145/3375923.3375943)
 
+## Project Details
 The Proposed architecture for gait parameter estimation is given as follows:
 
 ![alt text](https://github.com/Ankitjaiswal1201/Thesis/blob/master/Images/arch.png)

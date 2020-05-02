@@ -11,6 +11,7 @@ The proposed approach consists of three main blocks. They are
 1. Data acquisition, 
 2. 3D pose-estimation and 
 3. Gait parameter extraction. 
+
 In data acquisition block, the data is collected using the Microsoft Kinect device and is stored for further processing using XPCV
 software. The stored data is then used to estimate 3D Pose estimation of the person as shown in the 3D pose-estimation block.
 Using the 3D pose estimation results, the gait parameters are extracted as shown in the gait parameter extraction block.

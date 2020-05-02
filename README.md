@@ -3,7 +3,10 @@
 Here I have given an idea about the work done in my Research Project, Hiwi and Thesis.
 
 
+
 ![alt text](https://github.com/Ankitjaiswal1201/Thesis/blob/master/Images/arch.png)
+
+
 how 3D Pose estimation can be obtained using OpenPose and RGB and Depth Images from Kinect.
 
 ### Conversion of Dat raw files to any viewable format like .bmp, .png, .jpg. ###
